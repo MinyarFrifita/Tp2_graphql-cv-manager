@@ -1,25 +1,8 @@
-import { GraphQLError } from "graphql";
+import { Context, Cv } from "../types.ts";
 
 export const Query = {
-  hello: () => "Hello CV Manager",
+  cvs: (_: any, __: any, { db }: Context): Cv[] => db.cvs,
 
-  users: (_: any, __: any, { db }: any) => db.users,
-
-  skills: (_: any, __: any, { db }: any) => db.skills,
-
-  cvs: (_: any, __: any, { db }: any) => db.cvs,
-
-  cv: (_: any, { id }: any, { db }: any) => {
-    const cv = db.cvs.find((c: any) => c.id == id);
-
-    if (!cv) {
-      throw new GraphQLError(`CV with id '${id}' not found`, {
-        extensions: {
-          http: { status: 404 },
-        },
-      });
-    }
-
-    return cv;
-  },
+  cv: (_: any, { id }: { id: number }, { db }: Context): Cv | null =>
+    db.cvs.find((cv) => cv.id === id) ?? null,
 };

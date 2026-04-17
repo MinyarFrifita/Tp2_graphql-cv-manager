@@ -3,52 +3,69 @@ enum Role {
   ADMIN
 }
 
-#Interface
 
-interface Person {
-  id: ID!
-  name: String!
-}
 
 #Types
 
-type User implements Person {
-  id: ID!
+type User {
+  id: Int!
   name: String!
   email: String!
   role: Role!
+  cvs: [Cv!]! # relation inverse
+
 }
+
 
 type Skill {
-  id: ID!
+  id: Int!
   designation: String!
+  cvs: [Cv!]! # relation inverse
 }
 
-type Cv implements Person {
-  id: ID!
+type Cv {
+  id: Int!
   name: String!
   age: Int!
   job: String!
-  owner: User!
-  skills: [Skill!]!
+  owner: User! #relation vers User
+  skills: [Skill!]! #relation vers Skills
 }
 
 #Queries
 
+#pour recuperer les skills et le user d'un Cv par son id
+#c'est accessible directement coté Playground 
+# query {
+#   Cv(id: "1") {
+#     id
+#     name
+#     owner {      # ← récupère le user
+#       id
+#       name
+#       email
+#     }
+#     skills {     # ← récupère les skills
+#       id
+#       designation
+#     }
+#   }
+# }
+
 type Query {
-  hello(name: String): String!
-  users: [User!]!
+  # Récupérer tous les Cvs
   cvs: [Cv!]!
-  cv(id: ID!): Cv
-  skills: [Skill!]!
+  
+  # Récupérer un Cv par son id
+  cv(id: Int!): Cv
 }
 
 #Mutation 
 
 type Mutation {
   createCv(input: CreateCvInput!): Cv!
-  updateCv(id: ID!, input: UpdateCvInput!): Cv
-  deleteCv(id: ID!): Boolean!
+  updateCv(id: Int!, input: UpdateCvInput!): Cv # => retour nullable( si l'id n'existe pas )
+  deleteCv(id: Int!): Boolean! #confirmer le succès
 }
 
 #Subscription
@@ -56,7 +73,7 @@ type Mutation {
 type Subscription {
   cvAdded: Cv!
   cvUpdated: Cv!
-  cvDeleted: ID!
+  cvDeleted: Int! #pour minimiser les ressources ( il suffit de savoir quel id est supprimé de la base)
 }
 
 #Inputs
@@ -65,14 +82,15 @@ input CreateCvInput {
   name: String!
   age: Int!
   job: String!
-  ownerId: ID!
-  skillIds: [ID!]!
+  ownerId: Int!
+  skillIds: [Int!]!
 }
 
+#champs identiques mais optionnels
 input UpdateCvInput {
   name: String
   age: Int
   job: String
-  ownerId: ID
-  skillIds: [ID!]
+  ownerId: Int
+  skillIds: [Int!]
 }
