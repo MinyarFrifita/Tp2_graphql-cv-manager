@@ -1,7 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { resolvers } from "./resolvers/index.js";
-import * as db from "./db.js";
+import { DB } from "./db.js";
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -23,7 +23,7 @@ async function main() {
 
   const { url } = await startStandaloneServer(server, {
     // Utilisation du context pour partager la db (Bonne pratique Slide 71/72)
-    context: async () => ({ db }),
+    context: async () => ({ db: DB }),
     listen: { port: 4000 },
   });
 

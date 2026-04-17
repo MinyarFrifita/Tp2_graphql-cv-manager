@@ -3,7 +3,16 @@ enum Role {
   ADMIN
 }
 
-type User {
+#Interface
+
+interface Person {
+  id: ID!
+  name: String!
+}
+
+#Types
+
+type User implements Person {
   id: ID!
   name: String!
   email: String!
@@ -15,7 +24,7 @@ type Skill {
   designation: String!
 }
 
-type Cv {
+type Cv implements Person {
   id: ID!
   name: String!
   age: Int!
@@ -24,8 +33,46 @@ type Cv {
   skills: [Skill!]!
 }
 
+#Queries
+
 type Query {
   hello(name: String): String!
+  users: [User!]!
   cvs: [Cv!]!
-  cvById(id: ID!): Cv
+  cv(id: ID!): Cv
+  skills: [Skill!]!
+}
+
+#Mutation 
+
+type Mutation {
+  createCv(input: CreateCvInput!): Cv!
+  updateCv(id: ID!, input: UpdateCvInput!): Cv
+  deleteCv(id: ID!): Boolean!
+}
+
+#Subscription
+
+type Subscription {
+  cvAdded: Cv!
+  cvUpdated: Cv!
+  cvDeleted: ID!
+}
+
+#Inputs
+
+input CreateCvInput {
+  name: String!
+  age: Int!
+  job: String!
+  ownerId: ID!
+  skillIds: [ID!]!
+}
+
+input UpdateCvInput {
+  name: String
+  age: Int
+  job: String
+  ownerId: ID
+  skillIds: [ID!]
 }
