@@ -1,7 +1,7 @@
-import { Query } from "./query.ts";
+import { Query } from "./Query.ts";
 import { Mutation } from "./mutation.ts";
 import { Subscription } from "./subscription.ts";
-import { CvResolver, UserResolver, SkillResolver } from "./cv.ts";
+import { CvResolver, UserResolver, SkillResolver } from "./Cv.ts";
 
 export const resolvers = {
   Query,
