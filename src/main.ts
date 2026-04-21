@@ -1,9 +1,9 @@
-import { createYoga, createPubSub} from "graphql-yoga";
+import { createYoga } from "graphql-yoga";
 import { createServer } from "node:http";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 
 import { resolvers } from "./resolvers/index.ts";
-import { DB } from "./db.js";
+import { createContext } from "./context.ts";
 
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
@@ -17,10 +17,6 @@ const typeDefs = readFileSync(
   "utf-8"
 );
 
-// PubSub pour les subscriptions
-export const pubSub = createPubSub();
-
-// construire le schema executable à partir des typeDefs et resolvers
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
@@ -28,10 +24,7 @@ const schema = makeExecutableSchema({
 
 const yoga = createYoga({
   schema,
-  context: async () => ({
-    db: DB,
-    pubSub, // ← injecté dans le context
-  }),
+  context: createContext,
 });
 
 const server = createServer(yoga);

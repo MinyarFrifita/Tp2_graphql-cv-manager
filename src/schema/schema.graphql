@@ -3,72 +3,49 @@ enum Role {
   ADMIN
 }
 
-
-
-#Types
+# Types
 
 type User {
-  id: Int!
+  id: ID!
   name: String!
   email: String!
   role: Role!
-  cvs: [Cv!]! # relation inverse
-
+  cvs: [Cv!]!
 }
 
-
 type Skill {
-  id: Int!
+  id: ID!
   designation: String!
-  cvs: [Cv!]! # relation inverse
+  cvs: [Cv!]!
 }
 
 type Cv {
-  id: Int!
+  id: ID!
   name: String!
   age: Int!
   job: String!
-  owner: User! #relation vers User
-  skills: [Skill!]! #relation vers Skills
+  owner: User!
+  skills: [Skill!]!
 }
 
-#Queries
-
-#pour recuperer les skills et le user d'un Cv par son id
-#c'est accessible directement coté Playground 
-# query {
-#   Cv(id: "1") {
-#     id
-#     name
-#     owner {      # ← récupère le user
-#       id
-#       name
-#       email
-#     }
-#     skills {     # ← récupère les skills
-#       id
-#       designation
-#     }
-#   }
-# }
+# Queries
 
 type Query {
-  # Récupérer tous les Cvs
   cvs: [Cv!]!
-  
-  # Récupérer un Cv par son id
-  cv(id: Int!): Cv
+  cv(id: ID!): Cv
+  users: [User!]!
+  skills: [Skill!]!
 }
 
-#Mutation 
+# Mutations
 
 type Mutation {
   createCv(input: CreateCvInput!): Cv!
-  updateCv(id: Int!, input: UpdateCvInput!): Cv # => retour nullable( si l'id n'existe pas )
-  deleteCv(id: Int!): Boolean! #confirmer le succès
+  updateCv(id: ID!, input: UpdateCvInput!): Cv
+  deleteCv(id: ID!): Boolean!
 }
 
-#Subscription
+# Subscriptions
 
 enum CvAction {
   ADDED
@@ -86,21 +63,20 @@ type Subscription {
   cvChanged: CvEvent!
 }
 
-#Inputs
+# Inputs
 
 input CreateCvInput {
   name: String!
   age: Int!
   job: String!
-  ownerId: Int!
-  skillIds: [Int!]!
+  ownerId: ID!
+  skillIds: [ID!]!
 }
 
-#champs identiques mais optionnels
 input UpdateCvInput {
   name: String
   age: Int
   job: String
-  ownerId: Int
-  skillIds: [Int!]
+  ownerId: ID
+  skillIds: [ID!]
 }

@@ -1,10 +1,12 @@
-import { Context } from "../types.ts";
-import { CHANNELS } from "../channels.ts";
+import { pubsub, EVENTS } from "../pubsub.ts";
 
 export const Subscription = {
   cvChanged: {
-    subscribe: (_: unknown, __: unknown, { pubSub }: Context) =>
-      pubSub.subscribe(CHANNELS.CV_CHANGED),
-    resolve: (payload: unknown) => payload,
+    subscribe: () => pubsub.subscribe(EVENTS.CV_ADDED),
+    resolve: (payload: any) => ({
+      action: "ADDED",
+      cv: payload.cvAdded,
+      cvId: payload.cvAdded?.id,
+    }),
   },
 };

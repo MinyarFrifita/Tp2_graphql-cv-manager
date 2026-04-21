@@ -1,13 +1,11 @@
-import { Query } from "./Query.ts";
-import { Mutation } from "./mutation.ts";
+import { queryResolvers } from "./queryResolvers.ts";
+import { mutationResolvers } from "./mutationResolvers.ts";
+import { cvFieldResolvers } from "./cvFieldResolvers.ts";
 import { Subscription } from "./subscription.ts";
-import { CvResolver, UserResolver, SkillResolver } from "./Cv.ts";
 
 export const resolvers = {
-  Query,
-  Mutation,
+  ...queryResolvers,
+  ...mutationResolvers,
+  ...cvFieldResolvers,
   Subscription,
-  Cv: CvResolver,
-  User: UserResolver,
-  Skill: SkillResolver,
 };
