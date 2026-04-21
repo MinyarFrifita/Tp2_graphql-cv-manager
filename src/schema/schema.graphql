@@ -70,10 +70,20 @@ type Mutation {
 
 #Subscription
 
+enum CvAction {
+  ADDED
+  UPDATED
+  DELETED
+}
+
+type CvEvent {
+  action: CvAction!
+  cv: Cv
+  cvId: ID
+}
+
 type Subscription {
-  cvAdded: Cv!
-  cvUpdated: Cv!
-  cvDeleted: Int! #pour minimiser les ressources ( il suffit de savoir quel id est supprimé de la base)
+  cvChanged: CvEvent!
 }
 
 #Inputs
