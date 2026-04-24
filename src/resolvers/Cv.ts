@@ -16,7 +16,7 @@ export const UserResolver = {
 };
 
 export const SkillResolver = {
-  //retourne les cvs (objet) d'une skill parent
+  //retourne les cvs (objet) d'un skill parent
   cvs: (parent: Skill, _: any, { db }: Context): Cv[] =>
     db.cvs.filter((cv) => cv.skillIds.includes(parent.id)),
 };

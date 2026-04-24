@@ -35,7 +35,7 @@ type Cv {
 #Queries
 
 #pour recuperer les skills et le user d'un Cv par son id
-#c'est accessible directement coté Playground 
+#c'est accessible directement coté Playground   
 # query {
 #   Cv(id: "1") {
 #     id
