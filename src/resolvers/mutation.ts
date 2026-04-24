@@ -3,7 +3,7 @@ import { CHANNELS } from "../channels.ts";
 
 export const Mutation = {
   createCv: (
-    _ ,
+    _: unknown,
     { input }: { input: CreateCvInput },
     { db, pubSub }: Context
   ): Cv => {
@@ -39,7 +39,7 @@ export const Mutation = {
   },
 
   updateCv: (
-    _ ,
+    _: unknown,
     { id, input }: { id: number; input: UpdateCvInput },
     { db, pubSub }: Context
   ): Cv | null => {
@@ -81,7 +81,7 @@ export const Mutation = {
   },
 
   deleteCv: (
-    _ ,
+    _: unknown,
     { id }: { id: number },
     { db, pubSub }: Context
   ): boolean => {

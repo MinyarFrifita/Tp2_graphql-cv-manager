@@ -2,7 +2,7 @@ import { pubsub, EVENTS } from "../pubsub.ts";
 
 export const mutationResolvers = {
   Mutation: {
-    createCv: async (_ , { input } , { prisma } ) => {
+    createCv: async (_: any, { input }: any, { prisma }: any) => {
       const owner = await prisma.user.findUnique({ where: { id: input.ownerId } });
       if (!owner) throw new Error(`User ${input.ownerId} not found`);
 
@@ -19,7 +19,7 @@ export const mutationResolvers = {
       return newCv;
     },
 
-    updateCv: async (_ , { id, input } , { prisma } ) => {
+    updateCv: async (_: any, { id, input }: any, { prisma }: any) => {
       const updated = await prisma.cv.update({
         where: { id },
         data: {
@@ -36,7 +36,7 @@ export const mutationResolvers = {
       return updated;
     },
 
-    deleteCv: async (_ , { id } , { prisma } ) => {
+    deleteCv: async (_: any, { id }: any, { prisma }: any) => {
       await prisma.cv.delete({ where: { id } });
       pubsub.publish(EVENTS.CV_DELETED, { cvDeleted: id });
       return true;
