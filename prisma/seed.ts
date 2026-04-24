@@ -1,7 +1,7 @@
 import { PrismaClient, Role } from "@prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 
-const adapter = new PrismaLibSql({ url: "file:./dev.db" });
+const adapter = new PrismaLibSql({ url: "file:./prisma/dev.db" });
 const prisma = new PrismaClient({ adapter } as any);
 
 async function main() {

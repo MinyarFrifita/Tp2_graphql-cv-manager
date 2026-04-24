@@ -2,8 +2,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+//toutes les données sont stockées dans le fichier dev.db (pas de serveur, localhost, root, pdp ) 
+//SQLite est une base de données embarquée (embedded) et non pas serveur comme mysql et postgres 
 datasource db {
   provider = "sqlite"
+
 }
 
 model User {
@@ -34,3 +37,15 @@ enum Role {
   USER
   ADMIN
 }
+// npx prisma generate à chaque fois le schema prisma change 
+// npx prisma studio pour l'interface en ligne de prisma
+// pour ouvrir l'interface il faut npm install better-sqlite3
+//npm install @prisma/client pour initier 
+//npm install -D prisma
+//npm install @prisma/adapter-libsql pour utiliser sqllite
+//npx prisma init
+//les etapes sont:
+// npx prisma generate
+// npx prisma db push
+// npx prisma db seed
+// et dans la racine tout ça

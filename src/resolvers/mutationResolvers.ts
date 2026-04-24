@@ -15,6 +15,7 @@ export const mutationResolvers = {
           skills: { connect: input.skillIds.map((id: string) => ({ id })) },
         },
       });
+      
       pubsub.publish(EVENTS.CV_ADDED, { cvAdded: newCv });
       return newCv;
     },
