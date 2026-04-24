@@ -6,8 +6,9 @@ datasource db {
   provider = "sqlite"
 }
 
+
 model User {
-  id    String @id @default(uuid())
+  id    Int  @id @default(autoincrement())
   name  String
   email String @unique
   role  Role   @default(USER)
@@ -15,18 +16,18 @@ model User {
 }
 
 model Skill {
-  id          String @id @default(uuid())
+  id          Int @id @default(autoincrement())
   designation String
   cvs         Cv[]   @relation("CvSkills")
 }
 
 model Cv {
-  id      String  @id @default(uuid())
+  id      Int  @id @default(autoincrement())
   name    String
   age     Int
   job     String
   owner   User    @relation(fields: [ownerId], references: [id])
-  ownerId String
+  ownerId Int
   skills  Skill[] @relation("CvSkills")
 }
 

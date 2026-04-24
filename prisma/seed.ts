@@ -1,16 +1,16 @@
-import { PrismaClient, Role } from "@prisma/client";
+import { PrismaClient , Role } from "@prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 
-const adapter = new PrismaLibSql({ url: "file:./dev.db" });
+const adapter = new PrismaLibSql({ url: "file:./prisma/dev.db" });
 const prisma = new PrismaClient({ adapter } as any);
 
 async function main() {
   const alice = await prisma.user.create({
-    data: { name: "Alice Martin", email: "alice@gmail.com", role: Role.ADMIN },
+    data: {  name: "Alice Martin", email: "alice@gmail.com", role: Role.ADMIN },
   });
 
   const ts = await prisma.skill.create({ data: { designation: "TypeScript" } });
-  const gql = await prisma.skill.create({ data: { designation: "GraphQL" } });
+  const gql = await prisma.skill.create({ data: {  designation: "GraphQL" } });
 
   await prisma.cv.create({
     data: {
