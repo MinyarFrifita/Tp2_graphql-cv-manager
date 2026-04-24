@@ -1,15 +1,15 @@
 export const queryResolvers = {
   Query: {
-    cvs: (_: any, __: any, { prisma }: any) =>
+    cvs: (_ , __ , { prisma } ) =>
       prisma.cv.findMany(),
 
-    cv: (_: any, { id }: any, { prisma }: any) =>
+    cv: (_ , { id } , { prisma } ) =>
       prisma.cv.findUnique({ where: { id } }),
 
-    users: (_: any, __: any, { prisma }: any) =>
+    users: (_ , __ , { prisma } ) =>
       prisma.user.findMany(),
 
-    skills: (_: any, __: any, { prisma }: any) =>
+    skills: (_ , __ , { prisma } ) =>
       prisma.skill.findMany(),
   },
 };

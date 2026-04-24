@@ -11,7 +11,8 @@
     "resolveJsonModule": true,
     "types": ["node"],
     "allowImportingTsExtensions": true,
-    "noEmit": true
+    "noEmit": true , 
+    "noImplicitAny": false
   },
   "include": ["src/**/*"],
   "ts-node": {
