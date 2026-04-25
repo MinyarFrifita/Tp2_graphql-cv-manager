@@ -6,7 +6,7 @@ enum Role {
 # Types
 
 type User {
-  id: ID!
+  id: Int!
   name: String!
   email: String!
   role: Role!
@@ -14,13 +14,13 @@ type User {
 }
 
 type Skill {
-  id: ID!
+  id: Int!
   designation: String!
   cvs: [Cv!]!
 }
 
 type Cv {
-  id: ID!
+  id: Int!
   name: String!
   age: Int!
   job: String!
@@ -32,7 +32,7 @@ type Cv {
 
 type Query {
   cvs: [Cv!]!
-  cv(id: ID!): Cv
+  cv(id: Int!): Cv
   users: [User!]!
   skills: [Skill!]!
 }
@@ -41,8 +41,8 @@ type Query {
 
 type Mutation {
   createCv(input: CreateCvInput!): Cv!
-  updateCv(id: ID!, input: UpdateCvInput!): Cv
-  deleteCv(id: ID!): Boolean!
+  updateCv(id: Int!, input: UpdateCvInput!): Cv
+  deleteCv(id: Int!): Boolean!
 }
 
 # Subscriptions
@@ -56,7 +56,7 @@ enum CvAction {
 type CvEvent {
   action: CvAction!
   cv: Cv
-  cvId: ID
+  cvId: Int
 }
 
 type Subscription {
@@ -69,14 +69,14 @@ input CreateCvInput {
   name: String!
   age: Int!
   job: String!
-  ownerId: ID!
-  skillIds: [ID!]!
+  ownerId: Int!
+  skillIds: [Int!]!
 }
 
 input UpdateCvInput {
   name: String
   age: Int
   job: String
-  ownerId: ID
-  skillIds: [ID!]
+  ownerId: Int
+  skillIds: [Int!]
 }

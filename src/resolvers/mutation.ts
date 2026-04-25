@@ -1,10 +1,10 @@
-import { Context, Cv, CreateCvInput, UpdateCvInput } from "../types.ts";
+import { Context, Cv, CreateCvArgs , UpdateCvArgs , DeleteCvArgs }  from "../types.ts";
 import { CHANNELS } from "../channels.ts";
 
 export const Mutation = {
   createCv: (
     _: unknown,
-    { input }: { input: CreateCvInput },
+    { input }: CreateCvArgs,
     { db, pubSub }: Context
   ): Cv => {
     const owner = db.users.find((u) => u.id === input.ownerId);
@@ -19,8 +19,7 @@ export const Mutation = {
       }
     }
 
-    const newId =
-      db.cvs.length > 0 ? Math.max(...db.cvs.map((cv) => cv.id)) + 1 : 1;
+    const newId = db.cvs.length > 0 ? Math.max(...db.cvs.map((cv) => cv.id)) + 1 : 1;
 
     const newCv: Cv = {
       id: newId,
@@ -40,7 +39,7 @@ export const Mutation = {
 
   updateCv: (
     _: unknown,
-    { id, input }: { id: number; input: UpdateCvInput },
+    { id, input }: UpdateCvArgs,
     { db, pubSub }: Context
   ): Cv | null => {
     const index = db.cvs.findIndex((cv) => cv.id === id);
@@ -82,7 +81,7 @@ export const Mutation = {
 
   deleteCv: (
     _: unknown,
-    { id }: { id: number },
+    { id }: DeleteCvArgs,
     { db, pubSub }: Context
   ): boolean => {
     const index = db.cvs.findIndex((cv) => cv.id === id);

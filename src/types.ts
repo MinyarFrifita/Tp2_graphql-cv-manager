@@ -1,3 +1,5 @@
+import { PrismaClient } from "@prisma/client";
+
 export enum Role {
   USER = "USER",
   ADMIN = "ADMIN",
@@ -56,5 +58,23 @@ export interface PubSub {
 
 export interface Context {
   db: Database;
+  pubSub: PubSub;
+}
+
+export interface CreateCvArgs {
+  input: CreateCvInput;
+}
+
+export interface UpdateCvArgs {
+  id: number;
+  input: UpdateCvInput;
+}
+
+export interface DeleteCvArgs {
+  id: number;
+}
+
+export interface PrismaContext {
+  prisma: PrismaClient;
   pubSub: PubSub;
 }
